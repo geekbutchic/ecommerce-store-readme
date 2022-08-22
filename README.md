@@ -121,8 +121,38 @@ useEffect(() => {
 ```
 
 To Note:
->  npm install axios
+
+> npm install axios
 
 ```javascript
 const axios = require("axios");
+```
+
+### Product Screen
+
+- Very similar to Home Screen but in order to use react-router-dom { useParams } would have to be inquired.
+- Require useEffect and useState.
+
+```javascript
+const [product, setProduct] = useState({});
+const { id } = useParams();
+
+useEffect(() => {
+  const fetchProduct = async () => {
+    const { data } = await axios.get(
+      `${urlEndpoint}/server/api/products/${id}`
+    );
+    setProduct(data.message);
+  };
+  fetchProduct();
+}, [id]);
+
+useEffect(() => {
+  const fetchProduct = async () => {
+    const apiResponse = await fetch(`${urlEndpoint}/server/api/products/${id}`);
+    const apiJSON = await apiResponse.json();
+    setProduct(apiJSON);
+  };
+  fetchProduct();
+}, [id]);
 ```
